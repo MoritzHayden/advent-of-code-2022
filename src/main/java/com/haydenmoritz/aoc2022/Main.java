@@ -4,7 +4,6 @@ import com.haydenmoritz.aoc2022.days.*;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
