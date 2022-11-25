@@ -21,15 +21,15 @@ public class Main {
             try {
                 System.out.print("Enter day to run (0 to quit): ");
                 Integer inputDay = Integer.parseInt(reader.readLine()) - 1;
-                if (inputDay < 0) {
-                    System.out.print("Quitting...");
+                if (inputDay == -1) {
+                    System.out.print("Quitting...\n");
                     return;
                 }
                 days.get(inputDay).solveAll();
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println("Error: Solution not yet ready\n");
             } catch (NotImplementedException ex) {
                 System.out.println("Error: Solution not yet ready\n");
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Error: Invalid input\n");
             } catch (NumberFormatException ex) {
                 System.out.println("Error: Invalid input\n");
             } catch (Exception ex) {
