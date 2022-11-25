@@ -4,6 +4,7 @@ import com.haydenmoritz.aoc2022.days.*;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Main {
                 }
                 days.get(inputDay).solveAll();
             } catch (NotImplementedException ex) {
-                System.out.println("Error: Solution not yet ready\n");
+                System.out.println("Error: Solution not implemented\n");
             } catch (ArrayIndexOutOfBoundsException ex) {
                 System.out.println("Error: Invalid input\n");
             } catch (NumberFormatException ex) {
