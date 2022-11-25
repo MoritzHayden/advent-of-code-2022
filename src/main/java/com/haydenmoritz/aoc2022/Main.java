@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to AoC 2022!");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        List<Day> days = Arrays.asList(new Day01());
+        List<Day> days = Arrays.asList(new Day01(), new Day02());
 
         while (true) {
             try {
