@@ -21,4 +21,8 @@ public final class Utils {
         }
         return String.valueOf(day);
     }
+
+    public static void printSolutionMessage(int day, int part) {
+        System.out.print("Solution (Day " + day + "." + part + "): ");
+    }
 }
