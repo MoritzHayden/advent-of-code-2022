@@ -9,17 +9,15 @@ public class Day03 implements IDay {
 
     @Override
     public void solveAll() {
-        printSolutionMessage(dayNumber, 1);
-        solvePart1();
-        printSolutionMessage(dayNumber, 2);
-        solvePart2();
+        printSolutionMessage(dayNumber, 1, solvePart1());
+        printSolutionMessage(dayNumber, 2, solvePart2());
     }
 
-    private void solvePart1() {
+    private String solvePart1() {
         throw new NotImplementedException();
     }
 
-    public void solvePart2() {
+    private String solvePart2() {
         throw new NotImplementedException();
     }
 }

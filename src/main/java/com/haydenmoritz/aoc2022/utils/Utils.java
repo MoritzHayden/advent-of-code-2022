@@ -22,7 +22,7 @@ public final class Utils {
         return String.valueOf(day);
     }
 
-    public static void printSolutionMessage(int day, int part) {
-        System.out.print("Solution (Day " + day + "." + part + "): ");
+    public static void printSolutionMessage(int day, int part, String solution) {
+        System.out.println("Solution (Day " + day + "." + part + "): " + solution);
     }
 }
