@@ -4,7 +4,7 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
-public class Day12 implements Day {
+public class Day12 implements IDay {
     int dayNumber = 12;
 
     @Override
