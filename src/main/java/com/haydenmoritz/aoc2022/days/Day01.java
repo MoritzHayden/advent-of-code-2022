@@ -1,11 +1,15 @@
 package com.haydenmoritz.aoc2022.days;
 
-import org.apache.commons.lang3.NotImplementedException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day01 implements IDay {
     int dayNumber = 1;
+    ArrayList<Integer> elfCalories = new ArrayList<>();
 
     @Override
     public void solveAll() {
@@ -14,10 +18,29 @@ public class Day01 implements IDay {
     }
 
     private String solvePart1() {
-        throw new NotImplementedException();
+        int currentCalories = 0;
+        List<String> allCalories = readFile(dayNumber).toList();
+
+        for (String item : allCalories) {
+            try {
+                currentCalories = currentCalories + Integer.parseInt(item);
+            } catch (NumberFormatException ex) {
+                elfCalories.add(currentCalories);
+                currentCalories = 0;
+            }
+        }
+
+        return elfCalories.stream()
+                .max(Integer::compare)
+                .get()
+                .toString();
     }
 
     private String solvePart2() {
-        throw new NotImplementedException();
+        return elfCalories.stream()
+                .sorted(Comparator.reverseOrder())
+                .limit(3)
+                .collect(Collectors.summingInt(Integer::intValue))
+                .toString();
     }
 }
