@@ -9,7 +9,7 @@ public final class Utils {
     public static Stream<String> readFile(int day) {
         try {
             return Files.lines(Path.of(
-                    "src/main/java/com/haydenmoritz/aoc2022/input/Day" + convertDayIntToString(day) + ".txt"));
+                    "src/main/resources/input/Day" + convertDayIntToString(day) + ".txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
