@@ -2,10 +2,13 @@ package com.haydenmoritz.aoc2022.days;
 
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.stream.Stream;
+
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day02 implements IDay {
     int dayNumber = 2;
+    Stream<String> dayInput = readFile(dayNumber);
 
     @Override
     public void solveAll() {

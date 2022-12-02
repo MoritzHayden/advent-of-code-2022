@@ -2,13 +2,14 @@ package com.haydenmoritz.aoc2022.days;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day01 implements IDay {
     int dayNumber = 1;
+    Stream<String> dayInput = readFile(dayNumber);
     ArrayList<Integer> elfCalories = new ArrayList<>();
 
     @Override
@@ -19,9 +20,8 @@ public class Day01 implements IDay {
 
     private String solvePart1() {
         int currentCalories = 0;
-        List<String> allCalories = readFile(dayNumber).toList();
 
-        for (String item : allCalories) {
+        for (String item : dayInput.toList()) {
             try {
                 currentCalories = currentCalories + Integer.parseInt(item);
             } catch (NumberFormatException ex) {
