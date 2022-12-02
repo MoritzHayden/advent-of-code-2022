@@ -26,6 +26,8 @@ public class Day02 implements IDay {
     }
 
     private String solvePart1() {
+        scores.clear();
+
         for (String line : dayInput) {
             int score = 0;
             String[] plays = line.split(" ");
@@ -53,6 +55,7 @@ public class Day02 implements IDay {
 
     private String solvePart2() {
         scores.clear();
+
         for (String line : dayInput) {
             int score = 0;
             String[] plays = line.split(" ");

@@ -20,6 +20,7 @@ public class Day01 implements IDay {
 
     private String solvePart1() {
         int currentCalories = 0;
+        elfCalories.clear();
 
         for (String item : dayInput) {
             try {
