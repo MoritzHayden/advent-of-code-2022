@@ -8,7 +8,7 @@ import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day02 implements IDay {
     int dayNumber = 2;
-    List<String> dayInput = readFile(dayNumber).toList();
+    List<String> dayInput = readFile(dayNumber);
     Map<String, Integer> combos = Map.of(
             "A", 1,
             "B", 2,

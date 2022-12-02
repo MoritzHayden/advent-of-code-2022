@@ -3,13 +3,13 @@ package com.haydenmoritz.aoc2022.utils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.stream.Stream;
+import java.util.List;
 
 public final class Utils {
-    public static Stream<String> readFile(int day) {
+    public static List<String> readFile(int day) {
         try {
             return Files.lines(Path.of(
-                    "src/main/resources/input/Day" + convertDayIntToString(day) + ".txt"));
+                    "src/main/resources/input/Day" + convertDayIntToString(day) + ".txt")).toList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
