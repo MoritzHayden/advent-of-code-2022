@@ -57,8 +57,4 @@ public class Day03 implements IDay {
                 .mapToInt(Integer::intValue)
                 .sum());
     }
-
-    private int getValueOfCharacter(char character) {
-        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(character) + 1;
-    }
 }

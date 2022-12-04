@@ -31,3 +31,8 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
   ```java
   printSolutionMessage(12, 1, "42"); // Solution (Day 12.1): 42
   ```
+- `getValueOfCharacter(char character)` returns an integer value for a given character. Usage:
+  ```java
+  getValueOfCharacter('a') == 1;
+  getValueOfCharacter('B') == 28;
+  ```

@@ -25,4 +25,8 @@ public final class Utils {
     public static void printSolutionMessage(int day, int part, String solution) {
         System.out.println("Solution (Day " + day + "." + part + "): " + solution);
     }
+
+    public static int getValueOfCharacter(char character) {
+        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(character) + 1;
+    }
 }
