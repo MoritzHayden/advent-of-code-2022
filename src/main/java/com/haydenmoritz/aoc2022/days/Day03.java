@@ -1,7 +1,6 @@
 package com.haydenmoritz.aoc2022.days;
 
-import org.apache.commons.lang3.NotImplementedException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
@@ -17,10 +16,49 @@ public class Day03 implements IDay {
     }
 
     private String solvePart1() {
-        throw new NotImplementedException();
+        ArrayList<Integer> priorities = new ArrayList<>();
+        for (String rucksack : dayInput) {
+            final int mid = rucksack.length() / 2;
+            String[] parts = {rucksack.substring(0, mid), rucksack.substring(mid)};
+            String compartmentOne = parts[0];
+            String compartmentTwo = parts[1];
+
+            for (char item : compartmentOne.toCharArray()) {
+                if (compartmentTwo.contains(String.valueOf(item))) {
+                    priorities.add(getValueOfCharacter(item));
+                    break;
+                }
+            }
+        }
+
+        return String.valueOf(priorities
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum());
     }
 
     private String solvePart2() {
-        throw new NotImplementedException();
+        ArrayList<Integer> priorities = new ArrayList<>();
+        for (int i = 0; i < dayInput.size(); i += 3) {
+            String rucksackOne = dayInput.get(i);
+            String rucksackTwo = dayInput.get(i+1);
+            String rucksackThree = dayInput.get(i+2);
+
+            for (char item : rucksackOne.toCharArray()) {
+                if (rucksackTwo.contains(String.valueOf(item)) && rucksackThree.contains(String.valueOf(item))) {
+                    priorities.add(getValueOfCharacter(item));
+                    break;
+                }
+            }
+        }
+
+        return String.valueOf(priorities
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum());
+    }
+
+    private int getValueOfCharacter(char character) {
+        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(character) + 1;
     }
 }
