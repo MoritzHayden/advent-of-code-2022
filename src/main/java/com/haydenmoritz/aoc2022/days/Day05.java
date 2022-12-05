@@ -50,6 +50,7 @@ public class Day05 implements IDay {
                 .replace("to ", "");
         return Arrays.stream(newLine.split(" ")).mapToInt(c -> Integer.parseInt(c)).toArray();
     }
+
     private void useCrateMover9000(int[] instructions) {
         int count = instructions[0];
         int from = instructions[1];
