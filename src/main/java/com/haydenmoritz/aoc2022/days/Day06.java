@@ -1,7 +1,6 @@
 package com.haydenmoritz.aoc2022.days;
 
-import org.apache.commons.lang3.NotImplementedException;
-
+import java.util.HashSet;
 import java.util.List;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
@@ -17,10 +16,25 @@ public class Day06 implements IDay {
     }
 
     private String solvePart1() {
-        throw new NotImplementedException();
+        return decodeSignal(4);
     }
 
     private String solvePart2() {
-        throw new NotImplementedException();
+        return decodeSignal(14);
+    }
+
+    private String decodeSignal(int markerSize) {
+        char[] input = dayInput.get(0).toCharArray();
+        for (int i = markerSize-1; i < input.length; i++) {
+            HashSet<Character> seenChars = new HashSet<>();
+            for (int j = 0; j < markerSize; j++) {
+                seenChars.add(input[i-j]);
+            }
+
+            if (seenChars.size() == markerSize) {
+                return String.valueOf(i+1);
+            }
+        }
+        return null;
     }
 }
