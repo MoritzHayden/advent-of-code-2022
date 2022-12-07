@@ -3,7 +3,7 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
 
 ## Table of Contents
 1. [How To Run](#How-To-Run)
-2. [Util Functions](#Util-Methods)
+2. [Util Methods](#Util-Methods)
 3. [Models](#Models)
 
 ### How To Run
