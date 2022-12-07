@@ -3,7 +3,8 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
 
 ## Table of Contents
 1. [How To Run](#How-To-Run)
-2. [Util Functions](#Util-Functions)
+2. [Util Functions](#Util-Methods)
+3. [Models](#Models)
 
 ### How To Run
 1. Clone this repository to your local machine
@@ -15,7 +16,7 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
    - Set `Main` as the main class
 4. Run the project 🚀
 
-### Util Functions
+### Util Methods
 `Utils.java` contains some commonly used helper methods:
 
 - `List<String> readFile(int day)` returns a list containing the input for the provided day. Usage:
@@ -36,3 +37,9 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
   getValueOfCharacter('a') == 1;
   getValueOfCharacter('B') == 28;
   ```
+
+### Models
+The `models` directory contains data POJOs that may come in handy:
+
+- `Node<T>` can be used to build a tree. Each `Node` has `children`, a `parent` (unless it is the root), and `data` of type `T`.
+- `File` can be used to represent a node (or file) in a file system. Each `File` has a `name`, `size`, and `isDirectory` flag.
