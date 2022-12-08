@@ -17,23 +17,50 @@ public class Node<T> {
         this.parent = parent;
     }
 
+    public Node<T> getRoot() {
+        if (this.isRoot()) { return this; }
+        return this.getParent().getRoot();
+    }
+
+    public boolean containsData(T data) {
+        if (this.getData() == data) { return true; }
+        int total = this.children.size();
+        for (int i = 0; i < total; i++) {
+            this.children.get(i).containsData(data);
+        }
+        return false;
+    }
+
+    public ArrayList<T> inorderTraversal(ArrayList<T> files)
+    {
+        if (this == null) { return files; }
+
+        int total = this.children.size();
+        for (int i = 0; i < total; i++) {
+            this.children.get(i).inorderTraversal(files);
+        }
+
+        files.add(this.data);
+        return files;
+    }
+
     public List<Node<T>> getChildren() {
         return children;
     }
 
-    public void setParent(Node<T> parent) {
-        parent.addChild(this);
-        this.parent = parent;
+    public Node<T> getParent() {
+        return this.parent;
     }
 
-    public void addChild(T data) {
+    public Node<T> addChild(T data) {
         Node<T> child = new Node<T>(data);
-        child.setParent(this);
+        child.parent = this;
         this.children.add(child);
+        return child;
     }
 
     public void addChild(Node<T> child) {
-        child.setParent(this);
+        child.parent = this;
         this.children.add(child);
     }
 

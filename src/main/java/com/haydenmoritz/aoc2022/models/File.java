@@ -34,4 +34,19 @@ public class File {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (isDirectory) {
+            sb.append(this.name).append(" (dir)");
+        } else {
+            sb.append(this.name).append(" (file, size=");
+            sb.append(this.size).append(")");
+        }
+        return sb.toString();
+    }
+
+    public boolean equals(File file) {
+        return this.name.equals(file.name) && this.isDirectory == file.isDirectory && this.size == file.size;
+    }
 }
