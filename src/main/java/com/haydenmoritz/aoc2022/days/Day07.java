@@ -2,16 +2,18 @@ package com.haydenmoritz.aoc2022.days;
 
 import com.haydenmoritz.aoc2022.models.File;
 import com.haydenmoritz.aoc2022.models.FileNode;
-import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day07 implements IDay {
     int dayNumber = 7;
     List<String> dayInput = readFile(dayNumber);
+    Map<File, Integer> directorySizes = new HashMap<>();
 
     @Override
     public void solveAll() {
@@ -22,13 +24,18 @@ public class Day07 implements IDay {
     private String solvePart1() {
         // Create file system POJO
         FileNode fileTreeRoot = populateTree();
-
-        // TODO: Run DFS to calculate answer
-        return "";
+        calculateTotalSize(fileTreeRoot);
+        return String.valueOf(sumOfDirectoriesUnderSize(directorySizes, 100001));
     }
 
     private String solvePart2() {
-        throw new NotImplementedException();
+        int spaceAvailable = 70000000;
+        int spaceNeeded = 30000000;
+        int spaceUsed = directorySizes.values().stream().mapToInt(Integer::intValue).max().getAsInt();
+        int unusedSpace = spaceAvailable - spaceUsed;
+        int spaceRequired = spaceNeeded - unusedSpace;
+        int directoryToDelete = findSmallestDirectorySizeOverSize(directorySizes, spaceRequired);
+        return String.valueOf(directoryToDelete);
     }
 
     private FileNode populateTree() {
@@ -74,6 +81,36 @@ public class Day07 implements IDay {
         }
 
         return currentNode.getRoot();
+    }
+
+    private int calculateTotalSize(FileNode root) {
+        if (!root.getData().isDirectory()) { return root.getData().getSize(); }
+        int totalSize = 0;
+        for (FileNode child : root.getChildren()) {
+            totalSize += calculateTotalSize(child);
+        }
+        if (root.getData().isDirectory()) {
+            directorySizes.put(root.getData(), totalSize);
+        }
+        return totalSize + root.getData().getSize();
+    }
+
+    private int sumOfDirectoriesUnderSize(Map<File, Integer> directories, int maxSize) {
+        return directories
+                .values()
+                .stream()
+                .filter(size -> size < maxSize)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private int findSmallestDirectorySizeOverSize(Map<File, Integer> directories, int minSize) {
+        return directories
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= minSize)
+                .min(Comparator.comparingInt(Map.Entry::getValue))
+                .map(Map.Entry::getValue).get();
     }
 
     private CommandType getCommandType(String[] parsedLine) {
