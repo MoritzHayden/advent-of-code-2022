@@ -41,5 +41,5 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
 ### Models
 The `models` directory contains data POJOs that may come in handy:
 
-- `Node<T>` can be used to build a tree. Each `Node` has `children`, a `parent` (unless it is the root), and `data` of type `T`.
-- `File` can be used to represent a node (or file) in a file system. Each `File` has a `name`, `size`, and `isDirectory` flag.
+- `FileNode` can be used to build a tree representing a file system. Each `FileNode` has `children`, a `parent` (unless it is the root), and `data` of type `File`.
+- `File` can be used to represent a file in a file system. Each `File` has a `name` and `size`. If the `File` is a directory, size will equal zero).

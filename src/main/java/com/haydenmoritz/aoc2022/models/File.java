@@ -1,43 +1,36 @@
 package com.haydenmoritz.aoc2022.models;
 
 public class File {
+    // regionVARIABLES
     private String name;
-    private boolean isDirectory;
     private int size;
+    //endregion
 
-    public File(String name, boolean isDirectory, int size) {
+    //region CONSTRUCTOR
+    public File(String name, int size) {
         this.name = name;
-        this.isDirectory = isDirectory;
         this.size = size;
     }
+    //endregion
 
+    //region GETTERS
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean getIsDirectory() {
-        return isDirectory;
-    }
-
-    public void setIsDirectory(boolean isDirectory) {
-        this.isDirectory = isDirectory;
     }
 
     public int getSize() {
         return size;
     }
+    //endregion
 
-    public void setSize(int size) {
-        this.size = size;
+    //region METHODS
+    public boolean isDirectory() {
+        return size == 0;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (isDirectory) {
+        if (this.isDirectory()) {
             sb.append(this.name).append(" (dir)");
         } else {
             sb.append(this.name).append(" (file, size=");
@@ -47,6 +40,7 @@ public class File {
     }
 
     public boolean equals(File file) {
-        return this.name.equals(file.name) && this.isDirectory == file.isDirectory && this.size == file.size;
+        return this.name.equals(file.name) && this.size == file.size;
     }
+    //endregion
 }

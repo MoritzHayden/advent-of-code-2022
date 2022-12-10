@@ -21,14 +21,9 @@ public class Day07 implements IDay {
 
     private String solvePart1() {
         // Create file system POJO
-        FileNode fileTree = populateTree();
-        ArrayList<File> files = new ArrayList<>();
-        fileTree.getRoot().inorderTraversal(files);
-        files.forEach(file -> System.out.println("DATA: " + file.toString()));
+        FileNode fileTreeRoot = populateTree();
 
-        // System.out.println("TRAVERSED TREE: " + traverseBreadthFirst(fileTree));
-
-        // TODO: Run BFS to calculate answer
+        // TODO: Run DFS to calculate answer
         return "";
     }
 
@@ -37,17 +32,20 @@ public class Day07 implements IDay {
     }
 
     private FileNode populateTree() {
-        FileNode currentNode = new FileNode(new File("/", true, 0));
+        FileNode currentNode = new FileNode(new File("/", 0));
 
         for (String line : dayInput) {
             String[] parsedLine = line.split(" ");
             CommandType lineType = getCommandType(parsedLine);
 
             if (lineType == CommandType.CD_IN) {
-                // Add directory if it does not exist
-                File file = new File(parsedLine[2], true, 0);
-                if (currentNode.getRoot().countOccurrences(file) == 0) {
-                    currentNode = currentNode.addChild(file);
+                // Move to child directory if found
+                File file = new File(parsedLine[2], 0);
+                FileNode matchingChild = currentNode.findChild(file);
+                if (matchingChild != null) {
+                    currentNode = matchingChild;
+                } else {
+                    throw new RuntimeException("Directory \"" + parsedLine[2] + "\" not found");
                 }
             } else if (lineType == CommandType.CD_UP) {
                 // Set current node to parent
@@ -57,30 +55,25 @@ public class Day07 implements IDay {
                 currentNode = currentNode.getRoot();
             } else if (lineType == CommandType.DIR) {
                 // Add directory if it does not exist
-                // TODO: For some reason, dirs a and d are being added regardless
-                File file = new File(parsedLine[1], true, 0);
-                if (currentNode.getRoot().countOccurrences(file) == 0) {
+                File file = new File(parsedLine[1], 0);
+                if (!currentNode.childContainsFile(file)) {
                     currentNode.addChild(file);
                 }
             } else if (lineType == CommandType.FILE) {
                 // Add file if it does not exist
-                File file = new File(parsedLine[1], false, Integer.parseInt(parsedLine[0]));
-                if (currentNode.getRoot().countOccurrences(file) == 0) {
+                File file = new File(parsedLine[1], Integer.parseInt(parsedLine[0]));
+                if (!currentNode.childContainsFile(file)) {
                     currentNode.addChild(file);
                 }
             } else if (lineType == CommandType.LS) {
                 // Do nothing
             } else {
                 // Throw exception due to parsing error
-                throw new RuntimeException("Parsed unexpected" + lineType.toString().toLowerCase() + " input: " + line);
+                throw new RuntimeException("Parsed unexpected " + lineType.toString().toLowerCase() + " input: " + line);
             }
         }
 
-        FileNode fileTree = currentNode.getRoot();
-        ArrayList<File> files = new ArrayList<>();
-        fileTree.searchDFS(files);
-        System.out.println("Max depth of tree:" + fileTree.getDepth());
-        return fileTree;
+        return currentNode.getRoot();
     }
 
     private CommandType getCommandType(String[] parsedLine) {
