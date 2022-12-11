@@ -1,7 +1,5 @@
 package com.haydenmoritz.aoc2022.days;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -34,7 +32,39 @@ public class Day09 implements IDay {
     }
 
     private String solvePart2() {
-        throw new NotImplementedException();
+        // Reset variables
+        dayInput = readFile(dayNumber);
+        tailVisitedCoordinates = new HashSet<>();
+        Point head = new Point(0, 0);
+        Point knot1 = new Point(0, 0);
+        Point knot2 = new Point(0, 0);
+        Point knot3 = new Point(0, 0);
+        Point knot4 = new Point(0, 0);
+        Point knot5 = new Point(0, 0);
+        Point knot6 = new Point(0, 0);
+        Point knot7 = new Point(0, 0);
+        Point knot8 = new Point(0, 0);
+        Point tail = new Point(0, 0);
+        List<Point> knots = List.of(head, knot1, knot2, knot3, knot4, knot5, knot6, knot7, knot8, tail);
+
+        tailVisitedCoordinates.add(tail.toString());
+
+        for (String line : dayInput) {
+            String[] parsedLine = line.split(" ");
+            Direction lineDirection = getLineDirection(parsedLine[0]);
+            int steps = Integer.parseInt(parsedLine[1]);
+
+            for (int i = 0; i < steps; i++) {
+                for (int j = 0; j < knots.size() - 1; j++) {
+                    if (j == 0) movePoint(knots.get(j), lineDirection);
+                    Direction tailMovementDirection = getTailMovement(knots.get(j), knots.get(j+1));
+                    movePoint(knots.get(j+1), tailMovementDirection);
+                    if (j == knots.size() - 2) tailVisitedCoordinates.add(new Point(tail.x, tail.y).toString());
+                }
+            }
+        }
+
+        return String.valueOf(tailVisitedCoordinates.size());
     }
 
     private void simulateMovement(Direction direction, int steps) {
