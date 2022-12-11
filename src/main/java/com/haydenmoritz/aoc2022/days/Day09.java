@@ -11,7 +11,7 @@ import static com.haydenmoritz.aoc2022.utils.Utils.*;
 public class Day09 implements IDay {
     int dayNumber = 9;
     List<String> dayInput = readFile(dayNumber);
-    Set<Point> tailVisitedCoordinates = new HashSet<>();
+    Set<String> tailVisitedCoordinates = new HashSet<>();
     Point currentHead = new Point(0, 0);
     Point currentTail = new Point(0, 0);
 
@@ -21,7 +21,7 @@ public class Day09 implements IDay {
     }
 
     private String solvePart1() {
-        tailVisitedCoordinates.add(currentTail);
+        tailVisitedCoordinates.add(currentTail.toString());
 
         for (String line : dayInput) {
             String[] parsedLine = line.split(" ");
@@ -39,22 +39,31 @@ public class Day09 implements IDay {
 
     private void simulateMovement(Direction direction, int steps) {
         for (int i = 0; i < steps; i++) {
-            currentHead = movePoint(currentHead, direction);
+            movePoint(currentHead, direction);
             Direction tailMovementDirection = getTailMovement(currentHead, currentTail);
-            currentTail = movePoint(currentTail, tailMovementDirection);
-            tailVisitedCoordinates.add(currentTail);
+            movePoint(currentTail, tailMovementDirection);
+            tailVisitedCoordinates.add(new Point(currentTail.x, currentTail.y).toString());
         }
     }
 
     private Direction getTailMovement(Point head, Point tail) {
-        // TODO: Are these conditions correct and comprehensive?
+        if (head.x == tail.x && head.y == tail.y) return Direction.STAY;
+        if (head.x == tail.x && head.y == tail.y - 1) return Direction.STAY;
+        if (head.x == tail.x && head.y == tail.y + 1) return Direction.STAY;
+        if (head.x == tail.x - 1 && head.y == tail.y) return Direction.STAY;
+        if (head.x == tail.x + 1 && head.y == tail.y) return Direction.STAY;
+        if (head.x == tail.x - 1 && head.y == tail.y - 1) return Direction.STAY;
+        if (head.x == tail.x - 1 && head.y == tail.y + 1) return Direction.STAY;
+        if (head.x == tail.x + 1 && head.y == tail.y - 1) return Direction.STAY;
+        if (head.x == tail.x + 1 && head.y == tail.y + 1) return Direction.STAY;
+
         // Check vertical lines
         if (head.x == tail.x && head.y == tail.y - 2) return Direction.DOWN;
         if (head.x == tail.x && head.y == tail.y + 2) return Direction.UP;
 
         // Check horizontal lines
-        if (head.x - 2 == tail.x && head.y == tail.y) return Direction.RIGHT;
-        if (head.x + 2 == tail.x && head.y == tail.y) return Direction.LEFT;
+        if (head.x == tail.x - 2 && head.y == tail.y) return Direction.LEFT;
+        if (head.x == tail.x + 2 && head.y == tail.y) return Direction.RIGHT;
 
         // Check diagonal lines
         if (head.x > tail.x && head.y > tail.y) return Direction.UP_RIGHT;
@@ -62,34 +71,30 @@ public class Day09 implements IDay {
         if (head.x > tail.x && head.y < tail.y) return Direction.DOWN_RIGHT;
         if (head.x < tail.x && head.y < tail.y) return Direction.DOWN_LEFT;
 
-        // Otherwise stay
-        return Direction.STAY;
+        // No other condition should be true
+        throw new RuntimeException("Illegal head and/or tail positioning");
     }
 
-    private Point movePoint(Point point, Direction direction) {
-        Point newPoint = new Point();
-
+    private void movePoint(Point point, Direction direction) {
         if (direction == Direction.UP) {
-            newPoint.move(point.x, point.y + 1);
+            point.move(point.x, point.y + 1);
         } else if (direction == Direction.DOWN) {
-            newPoint.move(point.x, point.y - 1);
+            point.move(point.x, point.y - 1);
         } else if (direction == Direction.LEFT) {
-            newPoint.move(point.x - 1, point.y);
+            point.move(point.x - 1, point.y);
         } else if (direction == Direction.RIGHT) {
-            newPoint.move(point.x + 1, point.y);
+            point.move(point.x + 1, point.y);
         } else if (direction == Direction.UP_RIGHT) {
-            newPoint.move(point.x + 1, point.y + 1);
+            point.move(point.x + 1, point.y + 1);
         } else if (direction == Direction.UP_LEFT) {
-            newPoint.move(point.x - 1, point.y + 1);
+            point.move(point.x - 1, point.y + 1);
         } else if (direction == Direction.DOWN_LEFT) {
-            newPoint.move(point.x - 1, point.y - 1);
+            point.move(point.x - 1, point.y - 1);
         } else if (direction == Direction.DOWN_RIGHT) {
-            newPoint.move(point.x + 1, point.y - 1);
+            point.move(point.x + 1, point.y - 1);
         } else if (direction == Direction.STAY) {
-            newPoint.move(point.x, point.y);
+            point.move(point.x, point.y);
         }
-
-        return newPoint;
     }
 
     private Direction getLineDirection(String line) {
@@ -102,7 +107,7 @@ public class Day09 implements IDay {
         } else if (line.equals("D")) {
             return Direction.DOWN;
         } else {
-            return Direction.STAY;
+            throw new RuntimeException("Parsed invalid direction");
         }
     }
 
