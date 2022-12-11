@@ -31,7 +31,7 @@ public class Main {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 System.out.println("Error: Invalid input");
             } catch (NumberFormatException ex) {
-                System.out.println("Error: Invalid input");
+                System.out.println("Error: Expected a number");
             } catch (Exception ex) {
                 System.out.println("Error: " + ex);
             }
