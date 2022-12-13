@@ -62,7 +62,7 @@ public class Monkey {
     //endregion
 
     //region METHODS
-    public Long increaseWorry(Long worryLevel) {
+    public Long increaseWorry(long worryLevel) {
         Long newWorryLevel = 0L;
         if (this.operation.containsKey("*")) {
             long operationValue = this.operation.get("*");
@@ -85,7 +85,7 @@ public class Monkey {
         this.itemsSeen += 1L;
     }
 
-    public int findMonkeyIdToThrowTo(Long worryLevel) {
+    public int findMonkeyIdToThrowTo(long worryLevel) {
         return worryLevel % this.throwConditionOperand == 0 ? trueThrowId : falseThrowId;
     }
 
