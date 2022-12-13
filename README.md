@@ -19,11 +19,11 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
 ### Util Methods
 `Utils.java` contains some commonly used helper methods:
 
-- `List<String> readFile(int day)` returns a list containing the input for the provided day. Usage:
+- `List<String> readFile(int day)` returns a `List` containing the input for the provided day. Usage:
     ```java
     List<String> day12Input = readFile(12);
     ```
-- `String convertDayIntToString(int day)` returns a two-digit string representation of the provided day. Usage:
+- `String convertDayIntToString(int day)` returns a two-digit `String` representation of the provided day. Usage:
     ```java
     convertDayIntToString(02) == "02"; // true
     convertDayIntToString(12) == "12"; // true
@@ -32,14 +32,18 @@ My solutions for [Advent of Code 2022](https://adventofcode.com/2022) wrapped in
   ```java
   printSolutionMessage(12, 1, "42"); // Solution (Day 12.1): 42
   ```
-- `getValueOfCharacter(char character)` returns an integer value for a given character. Usage:
+- `getValueOfCharacter(char character)` returns an `int` value for a given character. Usage:
   ```java
   getValueOfCharacter('a') == 1;
   getValueOfCharacter('B') == 28;
   ```
+- `reverseString(String input)` returns a reversed `String` of the given input. Usage:
+  ```java
+  reverseString("Hello World!") == "!dlroW olleH"; // true
+  ```
 
 ### Models
-The `models` directory contains data POJOs that may come in handy:
+The `models` directory contains classes that may come in handy:
 
 - `FileNode` can be used to build a tree representing a file system. Each `FileNode` has:
   - `List<FileNode> children`

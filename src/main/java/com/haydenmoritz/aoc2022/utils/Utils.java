@@ -29,4 +29,12 @@ public final class Utils {
     public static int getValueOfCharacter(char character) {
         return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(character) + 1;
     }
+
+    public static String reverseString(String input) {
+        String output = "";
+        for (int i = 0; i < input.length(); i++) {
+            output = input.charAt(i) + output;
+        }
+        return output;
+    }
 }
