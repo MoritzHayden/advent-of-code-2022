@@ -45,6 +45,14 @@ The `models` directory contains data POJOs that may come in handy:
   - `List<FileNode> children`
   - `FileNode parent` (`null` if it is the root)
   - `File data`
-- `File` can be used to represent a file in a file system. Each `File` has;
+- `File` can be used to represent a file in a file system. Each `File` has:
   - `String name`
   - `int size` (`0` if it is a directory)
+- `Monkey` can be used to represent a monkey playing [keep away](https://en.wikipedia.org/wiki/Keep_away). Each `Monkey` has:
+  - `int id`
+  - `Queue<Long> items`
+  - `long itemsSeen`
+  - `Map<String, Integer> operation`
+  - `int throwConditionOperand`
+  - `int trueThrowId`
+  - `int falseThrowId`

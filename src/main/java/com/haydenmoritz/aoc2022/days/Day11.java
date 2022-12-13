@@ -1,14 +1,17 @@
 package com.haydenmoritz.aoc2022.days;
 
+import com.haydenmoritz.aoc2022.models.Monkey;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
 public class Day11 implements IDay {
     int dayNumber = 11;
     List<String> dayInput = readFile(dayNumber);
+    List<Monkey> monkeys = new ArrayList<>();
 
     @Override
     public void solveAll() {
@@ -17,10 +20,72 @@ public class Day11 implements IDay {
     }
 
     private String solvePart1() {
-        throw new NotImplementedException();
+        // Parse input into Monkey objects
+        monkeys = parseMonkeys(dayInput);
+
+        // Steps:
+        // For each of 20 rounds
+        //   For every item the monkey is holding
+        //     Divide worry level by 3 and round down
+        //     Perform operation using increaseWorry method
+        //     Test for condition
+        //     Find monkey with id equal to result of condition
+        //     Call catchItem
+        //     Remove head queue item from current monkey. If empty, break.
+        for (int i = 0; i < 20; i++) {
+            for (Monkey monkey : monkeys) {
+                while (!monkey.getItems().isEmpty()) {
+                    long worryLevel = monkey.getItems().remove();
+                    monkey.inspectItem();
+                    worryLevel = monkey.increaseWorry(worryLevel);
+                    worryLevel = worryLevel / 3L;
+                    int monkeyIdToThrowTo = monkey.findMonkeyIdToThrowTo(worryLevel);
+                    Monkey monkeyToThrowTo = monkeys.stream().filter(m -> m.getId() == monkeyIdToThrowTo).findFirst().orElse(null);
+                    monkeyToThrowTo.catchItem(worryLevel);
+                }
+            }
+        }
+
+        // Calculate monkey business value
+        return String.valueOf(calculateMonkeyBusiness(monkeys));
     }
 
     private String solvePart2() {
         throw new NotImplementedException();
+    }
+
+    private long calculateMonkeyBusiness(List<Monkey> monkeys) {
+        return monkeys.stream()
+                .sorted(Comparator.comparingLong(Monkey::getItemsSeen).reversed())
+                .mapToLong(m -> m.getItemsSeen())
+                .limit(2)
+                .reduce(1L, (a, b) -> a * b);
+    }
+
+    private List<Monkey> parseMonkeys(List<String> input) {
+        List<Monkey> monkeys = new ArrayList<>();
+        for (int i = 0; i < input.size(); i += 7) {
+            int id = Integer.parseInt(input.get(i).split(" ")[1].replace(":", ""));
+            Queue<Long> items = Arrays.stream(input.get(i + 1)
+                            .trim()
+                            .replace("Starting items: ", "")
+                            .replace(",", "")
+                            .split(" "))
+                    .map(Long::parseLong)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            String[] parsedOperation = input.get(i + 2).replace("Operation: new = old", "").trim().split(" ");
+            Map<String, Integer> operation;
+            try {
+                operation = Map.of(parsedOperation[0], Integer.parseInt(parsedOperation[1]));
+            } catch (NumberFormatException ex) {
+                operation = Map.of(parsedOperation[0], -1);
+            }
+            int throwConditionOperand = Integer.parseInt(input.get(i + 3).replace("Test: divisible by", "").trim());
+            int trueThrowId = Integer.parseInt(input.get(i + 4).replace("If true: throw to monkey", "").trim());
+            int falseThrowId = Integer.parseInt(input.get(i + 5).replace("If false: throw to monkey", "").trim());
+            monkeys.add(new Monkey(id, items, operation, throwConditionOperand, trueThrowId, falseThrowId));
+        }
+
+        return monkeys;
     }
 }

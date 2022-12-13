@@ -1,23 +1,31 @@
 package com.haydenmoritz.aoc2022.models;
 
+import java.util.Map;
 import java.util.Queue;
 
 public class Monkey {
     // region VARIABLES
     private int id;
     private Queue<Long> items;
-    private int itemsSeen;
-    private long throwCondition;
-    private long trueThrowId;
-    private long falseThrowId;
+    private long itemsSeen;
+    private Map<String, Integer> operation;
+    private int throwConditionOperand;
+    private int trueThrowId;
+    private int falseThrowId;
     //endregion
 
     //region CONSTRUCTOR
-    public Monkey(int id, Queue<Long> items, long throwCondition, long trueThrowId, long falseThrowId) {
+    public Monkey(int id,
+                  Queue<Long> items,
+                  Map<String, Integer> operation,
+                  int throwConditionOperand,
+                  int trueThrowId,
+                  int falseThrowId) {
         this.id = id;
         this.items = items;
-        this.itemsSeen = items.size();
-        this.throwCondition = throwCondition;
+        this.itemsSeen = 0L;
+        this.operation = operation;
+        this.throwConditionOperand = throwConditionOperand;
         this.trueThrowId = trueThrowId;
         this.falseThrowId = falseThrowId;
     }
@@ -32,31 +40,57 @@ public class Monkey {
         return items;
     }
 
-    public int getItemsSeen() {
+    public long getItemsSeen() {
         return itemsSeen;
     }
 
-    public long getThrowCondition() {
-        return throwCondition;
+    public Map<String, Integer> getOperation() {
+        return operation;
     }
 
-    public long getTrueThrowId() {
+    public int getThrowConditionOperand() {
+        return throwConditionOperand;
+    }
+
+    public int getTrueThrowId() {
         return trueThrowId;
     }
 
-    public long getFalseThrowId() {
+    public int getFalseThrowId() {
         return falseThrowId;
     }
     //endregion
 
     //region METHODS
-    public void catchItem(long worryLevel) {
-        this.items.add(worryLevel);
-        this.itemsSeen++;
+    public Long increaseWorry(Long worryLevel) {
+        Long newWorryLevel = 0L;
+        if (this.operation.containsKey("*")) {
+            long operationValue = this.operation.get("*");
+            if (operationValue == -1) {
+                operationValue = worryLevel;
+            }
+            newWorryLevel = worryLevel * operationValue;
+        } else if (this.operation.containsKey("+")) {
+            long operationValue = this.operation.get("+");
+            if (operationValue == -1) {
+                operationValue = worryLevel;
+            }
+            newWorryLevel = worryLevel + operationValue;
+        }
+
+        return newWorryLevel;
     }
 
-    public void throwItem(long worryLevel) {
-        // TODO: STUB
+    public void inspectItem() {
+        this.itemsSeen += 1L;
+    }
+
+    public int findMonkeyIdToThrowTo(Long worryLevel) {
+        return worryLevel % this.throwConditionOperand == 0 ? trueThrowId : falseThrowId;
+    }
+
+    public void catchItem(long worryLevel) {
+        this.items.add(worryLevel);
     }
     //endregion
 }
