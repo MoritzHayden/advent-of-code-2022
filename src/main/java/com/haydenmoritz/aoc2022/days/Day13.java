@@ -2,7 +2,10 @@ package com.haydenmoritz.aoc2022.days;
 
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
 import static com.haydenmoritz.aoc2022.utils.Utils.*;
 
@@ -17,7 +20,22 @@ public class Day13 implements IDay {
     }
 
     private String solvePart1() {
-        throw new NotImplementedException();
+        // Iterate over all packet pairs
+        for (int i = 0; i < dayInput.size(); i += 3) {
+            // Generate left packet stack
+            String leftLine = dayInput.get(i);
+            Stack<Character> leftStack = new Stack<>();
+            leftLine.chars().mapToObj(c -> (char) c).map(leftStack::add).toArray();
+
+            // Generate right packet stack
+            String rightLine = dayInput.get(i + 1);
+            Stack<Character> rightStack = new Stack<>();
+            rightLine.chars().mapToObj(c -> (char) c).map(rightStack::add).toArray();
+
+            // TODO: Use stacks to determine actual packet length
+        }
+
+        return "";
     }
 
     private String solvePart2() {
