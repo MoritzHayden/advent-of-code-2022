@@ -1,20 +1,21 @@
 package dev.hmoritz.aoc2022.days;
 
 import dev.hmoritz.aoc2022.models.Monkey;
-import dev.hmoritz.aoc2022.utils.Utils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static dev.hmoritz.aoc2022.utils.Utils.*;
+
 public class Day11 implements IDay {
     int dayNumber = 11;
-    List<String> dayInput = Utils.readFile(dayNumber);
+    List<String> dayInput = readFile(dayNumber);
     List<Monkey> monkeys = new ArrayList<>();
 
     @Override
     public void solveAll() {
-        Utils.printSolutionMessage(dayNumber, 1, solvePart1());
-        Utils.printSolutionMessage(dayNumber, 2, solvePart2());
+        printSolutionMessage(dayNumber, 1, solvePart1());
+        printSolutionMessage(dayNumber, 2, solvePart2());
     }
 
     private String solvePart1() {

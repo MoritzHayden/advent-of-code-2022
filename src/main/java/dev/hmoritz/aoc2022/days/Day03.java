@@ -1,18 +1,18 @@
 package dev.hmoritz.aoc2022.days;
 
-import dev.hmoritz.aoc2022.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static dev.hmoritz.aoc2022.utils.Utils.*;
+
 public class Day03 implements IDay {
     int dayNumber = 3;
-    List<String> dayInput = Utils.readFile(dayNumber);
+    List<String> dayInput = readFile(dayNumber);
 
     @Override
     public void solveAll() {
-        Utils.printSolutionMessage(dayNumber, 1, solvePart1());
-        Utils.printSolutionMessage(dayNumber, 2, solvePart2());
+        printSolutionMessage(dayNumber, 1, solvePart1());
+        printSolutionMessage(dayNumber, 2, solvePart2());
     }
 
     private String solvePart1() {
@@ -25,7 +25,7 @@ public class Day03 implements IDay {
 
             for (char item : compartmentOne.toCharArray()) {
                 if (compartmentTwo.contains(String.valueOf(item))) {
-                    priorities.add(Utils.getValueOfCharacter(item));
+                    priorities.add(getValueOfCharacter(item));
                     break;
                 }
             }
@@ -46,7 +46,7 @@ public class Day03 implements IDay {
 
             for (char item : rucksackOne.toCharArray()) {
                 if (rucksackTwo.contains(String.valueOf(item)) && rucksackThree.contains(String.valueOf(item))) {
-                    priorities.add(Utils.getValueOfCharacter(item));
+                    priorities.add(getValueOfCharacter(item));
                     break;
                 }
             }

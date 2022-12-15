@@ -1,19 +1,20 @@
 package dev.hmoritz.aoc2022.days;
 
-import dev.hmoritz.aoc2022.utils.Utils;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.List;
 import java.util.Stack;
 
+import static dev.hmoritz.aoc2022.utils.Utils.*;
+
 public class Day13 implements IDay {
     int dayNumber = 13;
-    List<String> dayInput = Utils.readFile(dayNumber);
+    List<String> dayInput = readFile(dayNumber);
 
     @Override
     public void solveAll() {
-        Utils.printSolutionMessage(dayNumber, 1, solvePart1());
-        Utils.printSolutionMessage(dayNumber, 2, solvePart2());
+        printSolutionMessage(dayNumber, 1, solvePart1());
+        printSolutionMessage(dayNumber, 2, solvePart2());
     }
 
     private String solvePart1() {

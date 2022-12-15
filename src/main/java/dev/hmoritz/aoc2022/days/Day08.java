@@ -1,22 +1,22 @@
 package dev.hmoritz.aoc2022.days;
 
-import dev.hmoritz.aoc2022.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static dev.hmoritz.aoc2022.utils.Utils.*;
+
 public class Day08 implements IDay {
     int dayNumber = 8;
-    List<String> dayInput = Utils.readFile(dayNumber);
+    List<String> dayInput = readFile(dayNumber);
     int maxColSize = 0;
     int maxRowSize = 0;
     List<List<Integer>> grid = new ArrayList<>();
 
     @Override
     public void solveAll() {
-        Utils.printSolutionMessage(dayNumber, 1, solvePart1());
-        Utils.printSolutionMessage(dayNumber, 2, solvePart2());
+        printSolutionMessage(dayNumber, 1, solvePart1());
+        printSolutionMessage(dayNumber, 2, solvePart2());
     }
 
     private String solvePart1() {
