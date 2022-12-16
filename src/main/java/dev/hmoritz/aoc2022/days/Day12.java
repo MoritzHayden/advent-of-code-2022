@@ -47,8 +47,8 @@ public class Day12 implements IDay {
                 row.add(node);
 
                 // Record start and end node coordinates
-                if (node == 83) startPoint = new Point(i, j);
-                if (node == 69) endPoint = new Point(i, j);
+                if (node == START) startPoint = new Point(i, j);
+                if (node == END) endPoint = new Point(i, j);
             }
             graph.add(row);
         }
